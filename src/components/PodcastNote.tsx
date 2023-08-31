@@ -30,7 +30,7 @@ export function PodcastNote({
   );
 
   return (
-    <div class="my-10 pl-4 border-l-2 border-gray-400 cursor-pointer flex flex-col gap-4">
+    <div class="my-16 pl-4 border-l-2 border-gray-400 cursor-pointer flex flex-col gap-4">
       <span class="text-xs text-gray-300">
         <Show
           when={episodeTitleExpanded()}
@@ -62,7 +62,7 @@ export function PodcastNote({
         <span class="text-xs text-gray-500">{podcastTitle}</span>
       </div>
 
-      <span>{podcastNote.text}</span>
+      <span class="py-6">{podcastNote.text}</span>
 
       <span class="self-end text-xs text-gray-500">{date}</span>
     </div>
