@@ -1,11 +1,14 @@
 {
   "name": "notas-meas-2",
+  "type": "module",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
     "start": "solid-start start"
   },
-  "type": "module",
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.26",
@@ -21,7 +24,5 @@
     "solid-js": "^1.7.11",
     "solid-start": "^0.3.4"
   },
-  "engines": {
-    "node": "18"
-  }
+
 }
