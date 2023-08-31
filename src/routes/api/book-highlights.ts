@@ -3,6 +3,8 @@ import { xata } from "~/xata";
 
 export async function GET() {
   return json(
-    await xata.db.Notes.sort("createdAt", "desc").select(["*"]).getAll(),
+    await xata.db.BookHighlights.sort("createdAt", "desc")
+      .select(["*"])
+      .getAll(),
   );
 }
