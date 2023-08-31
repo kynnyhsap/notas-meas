@@ -10,14 +10,12 @@ export async function GET() {
   );
 }
 
-export type Note = {
-  id: string;
+export type NewNote = {
   text: string;
-  createdAt: Date;
 };
 
 export async function POST({ request }: APIEvent) {
-  const data = await request.json();
+  const data: NewNote = await request.json();
 
   console.log("Received new note:", data);
 

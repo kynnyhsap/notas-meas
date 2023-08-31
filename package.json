@@ -10,6 +10,7 @@
     "start": "solid-start start"
   },
   "devDependencies": {
+    "@types/dateformat": "^5.0.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.26",
     "prettier": "^3.0.2",
@@ -22,6 +23,7 @@
     "@solidjs/meta": "^0.28.5",
     "@solidjs/router": "^0.8.2",
     "@xata.io/client": "^0.26.2",
+    "dateformat": "^5.0.3",
     "solid-js": "^1.7.11",
     "solid-start": "^0.3.4"
   }

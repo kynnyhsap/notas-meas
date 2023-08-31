@@ -99,6 +99,7 @@ const DatabaseClient = buildClient();
 const defaultOptions = {
   databaseURL:
     "https://Andriy-Pashynnyk-s-workspace-0j5g5v.eu-west-1.xata.sh/db/notas-meas",
+  branch: "main",
 };
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {
