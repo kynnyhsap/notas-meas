@@ -5,20 +5,17 @@ import { For } from "solid-js";
 import { A } from "@solidjs/router";
 
 export function routeData() {
-  console.log("podcasts routeData called");
   return createServerData$(
     async () => {
       const xata = getXataClient();
 
-      // TODO: .sort("lastAddedNoteAt", "desc")
-      const podcasts: PodcastsRecord[] = await xata.db.Podcasts.getAll();
-
-      console.log("createServerData$ result", podcasts.length);
+      const podcasts: PodcastsRecord[] = await xata.db.Podcasts.getAll(); // TODO: .sort("lastAddedNoteAt", "desc")
 
       return { podcasts };
     },
     {
       key: "podcasts",
+      initialValue: { podcasts: [] },
     },
   );
 }
@@ -39,15 +36,10 @@ export default function Podcasts() {
 
   const { podcasts } = data() ?? { podcasts: [] };
 
-  console.log({
-    podcasts: podcasts.length,
-    datad: data(),
-    data_state: data.state,
-  });
-
   return (
-    <main class="mx-auto w-80">
-      <h1 class="font-bold text-lg">Podcasts</h1>
+    <>
+      <h1 class="font-bold text-xl text-center">Podcasts</h1>
+
       <For each={podcasts}>
         {(podcast) => (
           <A href={`/podcasts/${podcast.id}`} class="cursor-pointer">
@@ -63,6 +55,6 @@ export default function Podcasts() {
           </A>
         )}
       </For>
-    </main>
+    </>
   );
 }

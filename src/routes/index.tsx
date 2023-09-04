@@ -1,25 +1,31 @@
 import { getXataClient, NotesRecord, PodcastEpisodeNotesRecord } from "~/xata";
-import { useRouteData, createRouteData } from "solid-start";
+import { useRouteData } from "solid-start";
 import { For } from "solid-js";
 import { Note } from "~/components/Note";
 import { PodcastNote } from "~/components/PodcastNote";
+import { createServerData$ } from "solid-start/server";
 
 export function routeData() {
-  return createRouteData(async () => {
-    const xata = getXataClient();
+  return createServerData$(
+    async () => {
+      const xata = getXataClient();
 
-    const [notes, podcastNotes] = await Promise.all([
-      (await xata.db.Notes.sort("createdAt", "desc")
-        .select(["*"])
-        .getAll()) as NotesRecord[],
+      const [notes, podcastNotes] = await Promise.all([
+        (await xata.db.Notes.sort("createdAt", "desc")
+          .select(["*"])
+          .getAll()) as NotesRecord[],
 
-      (await xata.db.PodcastEpisodeNotes.sort("createdAt", "desc")
-        .select(["*", "podcastEpisode.*", "podcastEpisode.podcast.*"])
-        .getAll()) as PodcastEpisodeNotesRecord[],
-    ]);
+        (await xata.db.PodcastEpisodeNotes.sort("createdAt", "desc")
+          .select(["*", "podcastEpisode.*", "podcastEpisode.podcast.*"])
+          .getAll()) as PodcastEpisodeNotesRecord[],
+      ]);
 
-    return { notes, podcastNotes };
-  });
+      return { notes, podcastNotes };
+    },
+    {
+      initialValue: { notes: [], podcastNotes: [] },
+    },
+  );
 }
 
 export default function Home() {
@@ -27,15 +33,17 @@ export default function Home() {
 
   const { notes, podcastNotes } = feed() ?? { notes: [], podcastNotes: [] };
 
-  return (
-    <main>
-      <div class="mx-auto my-8 w-80">
-        <For each={podcastNotes}>
-          {(podcastNote) => <PodcastNote podcastNote={podcastNote} />}
-        </For>
+  // TODO: loading skeletons
 
-        <For each={notes}>{(note) => <Note note={note} />}</For>
-      </div>
-    </main>
+  return (
+    <>
+      <h1 class="font-bold text-xl text-center">Feed</h1>
+
+      <For each={podcastNotes}>
+        {(podcastNote) => <PodcastNote podcastNote={podcastNote} />}
+      </For>
+
+      <For each={notes}>{(note) => <Note note={note} />}</For>
+    </>
   );
 }

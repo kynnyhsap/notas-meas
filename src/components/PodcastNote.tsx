@@ -1,8 +1,6 @@
 import { PodcastEpisodeNotesRecord } from "~/xata";
 import dateFormat from "dateformat";
-import { createSignal, Show } from "solid-js";
-
-const MAX_EPISODE_TITLE_LENGTH = 80; // statically, 90% of the titles in my db are shorter than 80 chars
+import { A } from "@solidjs/router";
 
 export function PodcastNote({
   podcastNote,
@@ -22,37 +20,14 @@ export function PodcastNote({
   );
 
   const episodeTitle = podcastNote.podcastEpisode?.title ?? "";
-  const isLongEpisodeTitle = episodeTitle.length > MAX_EPISODE_TITLE_LENGTH;
-  const truncatedEpisodeTitle = episodeTitle.slice(0, MAX_EPISODE_TITLE_LENGTH);
-
-  const [episodeTitleExpanded, setEpisodeTitleExpanded] = createSignal(
-    !isLongEpisodeTitle,
-  );
 
   return (
     <div class="my-16 pl-4 border-l-2 border-gray-400 cursor-pointer flex flex-col gap-4">
-      <span class="text-xs text-gray-300">
-        <Show
-          when={episodeTitleExpanded()}
-          fallback={
-            <>
-              {truncatedEpisodeTitle}...{" "}
-              <span
-                class="text-xs text-blue-400"
-                onClick={() => {
-                  setEpisodeTitleExpanded(!episodeTitleExpanded());
-                }}
-              >
-                more
-              </span>
-            </>
-          }
-        >
-          {episodeTitle}
-        </Show>
-      </span>
+      <A href={`/podcasts/episodes/${podcastNote.podcastEpisode?.id}`}>
+        <span class="text-xs text-gray-300">{episodeTitle}</span>
+      </A>
 
-      <div>
+      <A href={`/podcasts/${podcastNote.podcastEpisode?.podcast?.id}`}>
         <img
           src={image}
           class="w-6 h-6 rounded-sm inline-block mr-2"
@@ -60,7 +35,7 @@ export function PodcastNote({
         />
 
         <span class="text-xs text-gray-500">{podcastTitle}</span>
-      </div>
+      </A>
 
       <span class="py-6">{podcastNote.text}</span>
 

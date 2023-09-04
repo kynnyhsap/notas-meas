@@ -23,13 +23,16 @@ export default function Root() {
       </Head>
 
       <Body>
-        <Suspense>
-          <ErrorBoundary>
-            <Routes>
-              <FileRoutes />
-            </Routes>
-          </ErrorBoundary>
-        </Suspense>
+        <main class="mx-auto my-8 w-80">
+          <Suspense>
+            <ErrorBoundary>
+              <Routes>
+                <FileRoutes />
+              </Routes>
+            </ErrorBoundary>
+          </Suspense>
+        </main>
+
         <Scripts />
       </Body>
     </Html>
