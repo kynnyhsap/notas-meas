@@ -1,7 +1,6 @@
-import { getXataClient, NotesRecord, PodcastEpisodeNotesRecord } from "~/xata";
+import { getXataClient, PodcastEpisodeNotesRecord } from "~/xata";
 import { useRouteData } from "solid-start";
 import { For } from "solid-js";
-import { Note } from "~/components/Note";
 import { PodcastNote } from "~/components/PodcastNote";
 import { createServerData$ } from "solid-start/server";
 
