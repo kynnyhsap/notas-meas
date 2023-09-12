@@ -10,20 +10,17 @@ export function routeData() {
     async () => {
       const xata = getXataClient();
 
-      const [notes, podcastNotes] = await Promise.all([
-        (await xata.db.Notes.sort("createdAt", "desc")
-          .select(["*"])
-          .getAll()) as NotesRecord[],
+      const podcastNotes = (await xata.db.PodcastEpisodeNotes.sort(
+        "createdAt",
+        "desc",
+      )
+        .select(["*", "podcastEpisode.*", "podcastEpisode.podcast.*"])
+        .getMany()) as PodcastEpisodeNotesRecord[];
 
-        (await xata.db.PodcastEpisodeNotes.sort("createdAt", "desc")
-          .select(["*", "podcastEpisode.*", "podcastEpisode.podcast.*"])
-          .getAll()) as PodcastEpisodeNotesRecord[],
-      ]);
-
-      return { notes, podcastNotes };
+      return { podcastNotes };
     },
     {
-      initialValue: { notes: [], podcastNotes: [] },
+      initialValue: { podcastNotes: [] },
     },
   );
 }
@@ -31,7 +28,7 @@ export function routeData() {
 export default function Home() {
   const feed = useRouteData<typeof routeData>();
 
-  const { notes, podcastNotes } = feed() ?? { notes: [], podcastNotes: [] };
+  const { podcastNotes } = feed() ?? { notes: [], podcastNotes: [] };
 
   // TODO: loading skeletons
 
@@ -42,8 +39,6 @@ export default function Home() {
       <For each={podcastNotes}>
         {(podcastNote) => <PodcastNote podcastNote={podcastNote} />}
       </For>
-
-      <For each={notes}>{(note) => <Note note={note} />}</For>
     </>
   );
 }

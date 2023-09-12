@@ -1,5 +1,5 @@
+import dayjs from "dayjs";
 import { PodcastEpisodeNotesRecord } from "~/xata";
-import dateFormat from "dateformat";
 import { A } from "@solidjs/router";
 
 export function PodcastNote({
@@ -7,9 +7,7 @@ export function PodcastNote({
 }: {
   podcastNote: PodcastEpisodeNotesRecord;
 }) {
-  const date = podcastNote.createdAt
-    ? dateFormat(podcastNote?.createdAt, "mmm d, HH:MM")
-    : "";
+  const date = dayjs(podcastNote?.createdAt).format("MMM D, hh:mm");
 
   const image =
     podcastNote.podcastEpisode?.podcast?.image ??
