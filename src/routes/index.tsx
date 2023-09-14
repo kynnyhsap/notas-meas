@@ -2,16 +2,16 @@ import { getXataClient, PodcastEpisodeNotesRecord } from "~/xata";
 import server$ from "solid-start/server";
 import { PodcastNote } from "~/components/PodcastNote";
 import { PodcastNoteSkeleton } from "~/components/PodcastNoteSkeleton";
-import { Pages } from "~/components/Pages";
+import { InfinitePages } from "~/components/InfinitePages";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 20;
 
 const podcastNotesFetcher = server$(async (page: number) => {
   const xata = getXataClient();
 
   const { records } = await xata.db.PodcastEpisodeNotes.sort(
     "createdAt",
-    "desc",
+    "desc"
   )
     .select(["*", "podcastEpisode.*", "podcastEpisode.podcast.*"])
     .getPaginated({
@@ -29,7 +29,7 @@ export default function Home() {
     <>
       <h1 class="font-bold text-xl text-center">Feed</h1>
 
-      <Pages
+      <InfinitePages
         fetcher={podcastNotesFetcher}
         fallback={
           <div>
@@ -40,7 +40,7 @@ export default function Home() {
         }
       >
         {(podcastNote) => <PodcastNote podcastNote={podcastNote} />}
-      </Pages>
+      </InfinitePages>
     </>
   );
 }

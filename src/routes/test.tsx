@@ -1,5 +1,5 @@
 import server$ from "solid-start/server";
-import { Pages } from "~/components/Pages";
+import { InfinitePages } from "~/components/InfinitePages";
 
 interface Post {
   id: string;
@@ -8,7 +8,7 @@ interface Post {
 
 const jsonPostsFetcher = server$(async (page: number) => {
   const jsonPosts = await fetch(
-    "https://jsonplaceholder.typicode.com/posts",
+    "https://jsonplaceholder.typicode.com/posts"
   ).then((response) => response.json());
 
   return jsonPosts.slice(page * 30, (page + 1) * 30) as Post[];
@@ -19,7 +19,7 @@ export default function TestPage() {
     <>
       <h1 class="font-bold text-xl text-center">Test</h1>
 
-      <Pages
+      <InfinitePages
         fetcher={jsonPostsFetcher}
         fallback={
           <div class="animate-pulse ">
@@ -30,7 +30,7 @@ export default function TestPage() {
         }
       >
         {(item) => <div class="my-4">{item.id}</div>}
-      </Pages>
+      </InfinitePages>
     </>
   );
 }

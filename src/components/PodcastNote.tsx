@@ -14,13 +14,13 @@ export function PodcastNote({
     "https://www.eslc.org/wp-content/uploads/2019/08/placeholder-grey-square-600x600.jpg";
 
   const podcastTitle = formatPodcastTitle(
-    podcastNote.podcastEpisode?.podcast?.title ?? "",
+    podcastNote.podcastEpisode?.podcast?.title ?? ""
   );
 
   const episodeTitle = podcastNote.podcastEpisode?.title ?? "";
 
   return (
-    <div class="my-16 pl-4 border-l-2 border-gray-400 cursor-pointer flex flex-col gap-4">
+    <div class="my-16 pl-4 border-l-2 border-gray-400 flex flex-col gap-4">
       <A href={`/podcasts/episodes/${podcastNote.podcastEpisode?.id}`}>
         <span class="text-xs text-gray-300">{episodeTitle}</span>
       </A>
