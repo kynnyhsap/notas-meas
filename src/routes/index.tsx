@@ -3,14 +3,11 @@ import server$ from "solid-start/server";
 import { PodcastNote } from "~/components/PodcastNote";
 import { PodcastNoteSkeleton } from "~/components/PodcastNoteSkeleton";
 import { Pages } from "~/components/Pages";
-import { wait } from "~/utils/wait";
 
 const PAGE_SIZE = 10;
 
 const podcastNotesFetcher = server$(async (page: number) => {
   const xata = getXataClient();
-
-  await wait(1000);
 
   const { records } = await xata.db.PodcastEpisodeNotes.sort(
     "createdAt",

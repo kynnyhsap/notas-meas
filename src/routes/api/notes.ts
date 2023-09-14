@@ -1,6 +1,5 @@
 import { APIEvent, json } from "solid-start/api";
 import { getXataClient } from "~/xata";
-import { NewPodcastNote } from "~/routes/api/podcast-notes";
 
 export async function GET() {
   const xata = getXataClient();
