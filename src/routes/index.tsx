@@ -1,30 +1,39 @@
 import { getXataClient, PodcastEpisodeNotesRecord } from "~/xata";
 import server$ from "solid-start/server";
-import { createResource, For, Show, createEffect, Suspense } from "solid-js";
 import { PodcastNote } from "~/components/PodcastNote";
 import { PodcastNoteSkeleton } from "~/components/PodcastNoteSkeleton";
+import { Pages } from "~/components/Pages";
+import { wait } from "~/utils/wait";
 
-const fetchPodcastNotes = server$(async () => {
+const PAGE_SIZE = 10;
+
+const podcastNotesFetcher = server$(async (page: number) => {
   const xata = getXataClient();
+
+  await wait(1000);
 
   const { records } = await xata.db.PodcastEpisodeNotes.sort(
     "createdAt",
     "desc",
   )
     .select(["*", "podcastEpisode.*", "podcastEpisode.podcast.*"])
-    .getPaginated();
+    .getPaginated({
+      pagination: {
+        size: PAGE_SIZE,
+        offset: page * PAGE_SIZE,
+      },
+    });
 
   return records as PodcastEpisodeNotesRecord[];
 });
 
 export default function Home() {
-  const [data] = createResource(fetchPodcastNotes);
-
   return (
     <>
       <h1 class="font-bold text-xl text-center">Feed</h1>
 
-      <Suspense
+      <Pages
+        fetcher={podcastNotesFetcher}
         fallback={
           <div>
             <PodcastNoteSkeleton />
@@ -33,10 +42,8 @@ export default function Home() {
           </div>
         }
       >
-        <For each={data()}>
-          {(podcastNote) => <PodcastNote podcastNote={podcastNote} />}
-        </For>
-      </Suspense>
+        {(podcastNote) => <PodcastNote podcastNote={podcastNote} />}
+      </Pages>
     </>
   );
 }
