@@ -3,32 +3,47 @@ import { useRouteData } from "solid-start";
 import { createServerData$ } from "solid-start/server";
 import { For } from "solid-js";
 import { A } from "@solidjs/router";
+import { PodcastImageWithTitle } from "~/components/PodcastImageWithTitle";
 
 export function routeData() {
   return createServerData$(
     async () => {
       const xata = getXataClient();
 
-      const podcasts: PodcastsRecord[] = await xata.db.Podcasts.getAll(); // TODO: .sort("lastAddedNoteAt", "desc")
+      const podcasts: PodcastsRecord[] = await xata.db.Podcasts.getAll();
 
-      return { podcasts };
+      // sort podcasts by latest episode
+      const sortedPodcasts = (
+        await Promise.all(
+          podcasts.map(async (podcast) => {
+            const latestEpisode = await xata.db.PodcastEpisodes.filter({
+              "podcast.id": podcast.id,
+            })
+              .sort("xata.createdAt", "desc")
+              .getFirst();
+
+            return {
+              podcast,
+              latestEpisode,
+            };
+          }),
+        )
+      )
+        .sort((a, b) => {
+          const aDate = a.latestEpisode?.xata.createdAt ?? new Date();
+          const bDate = b.latestEpisode?.xata.createdAt ?? new Date();
+
+          return aDate > bDate ? -1 : 1;
+        })
+        .map(({ podcast }) => podcast);
+
+      return { podcasts: sortedPodcasts };
     },
     {
       key: "podcasts",
       initialValue: { podcasts: [] },
     },
   );
-}
-
-export function getPodcastImage(image: string | null | undefined) {
-  return (
-    image ??
-    "https://www.eslc.org/wp-content/uploads/2019/08/placeholder-grey-square-600x600.jpg"
-  );
-}
-
-export function formatPodcastTitle(title: string | null | undefined) {
-  return title?.replace(" (🔓 for Andriy Pashynnyk)", ""); // this postfix is added by the private podcasts feeds
 }
 
 export default function Podcasts() {
@@ -44,13 +59,7 @@ export default function Podcasts() {
         {(podcast) => (
           <A href={`/podcasts/${podcast.id}`} class="cursor-pointer">
             <div class="flex items-center gap-4 my-8">
-              <img
-                src={getPodcastImage(podcast.image)}
-                alt={`"${podcast.title}" podcast image.`}
-                class="w-16 h-16 rounded-sm inline-block shadow shadow-gray-800"
-              />
-
-              <span>{formatPodcastTitle(podcast.title)}</span>
+              <PodcastImageWithTitle podcast={podcast} size="lg" />
             </div>
           </A>
         )}
