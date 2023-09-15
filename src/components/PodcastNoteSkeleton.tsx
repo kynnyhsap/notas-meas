@@ -36,7 +36,3 @@ export function PodcastNoteSkeleton() {
     </div>
   );
 }
-
-function formatPodcastTitle(title: string) {
-  return title.replace(" (🔓 for Andriy Pashynnyk)", ""); // this postfix is added by the private podcasts feeds
-}

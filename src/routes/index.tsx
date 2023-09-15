@@ -11,7 +11,7 @@ const podcastNotesFetcher = server$(async (page: number) => {
 
   const { records } = await xata.db.PodcastEpisodeNotes.sort(
     "createdAt",
-    "desc"
+    "desc",
   )
     .select(["*", "podcastEpisode.*", "podcastEpisode.podcast.*"])
     .getPaginated({
@@ -33,6 +33,8 @@ export default function Home() {
         fetcher={podcastNotesFetcher}
         fallback={
           <div>
+            <PodcastNoteSkeleton />
+            <PodcastNoteSkeleton />
             <PodcastNoteSkeleton />
             <PodcastNoteSkeleton />
             <PodcastNoteSkeleton />

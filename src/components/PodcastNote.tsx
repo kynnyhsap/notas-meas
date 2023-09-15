@@ -1,20 +1,18 @@
-import dayjs from "dayjs";
 import { PodcastEpisodeNotesRecord } from "~/xata";
 import { A } from "@solidjs/router";
+import { Datetime } from "~/components/Datetime";
 
 export function PodcastNote({
   podcastNote,
 }: {
   podcastNote: PodcastEpisodeNotesRecord;
 }) {
-  const date = dayjs(podcastNote?.createdAt).format("MMM D, hh:mm");
-
   const image =
     podcastNote.podcastEpisode?.podcast?.image ??
     "https://www.eslc.org/wp-content/uploads/2019/08/placeholder-grey-square-600x600.jpg";
 
   const podcastTitle = formatPodcastTitle(
-    podcastNote.podcastEpisode?.podcast?.title ?? ""
+    podcastNote.podcastEpisode?.podcast?.title ?? "",
   );
 
   const episodeTitle = podcastNote.podcastEpisode?.title ?? "";
@@ -37,7 +35,7 @@ export function PodcastNote({
 
       <span class="py-6">{podcastNote.text}</span>
 
-      <span class="self-end text-xs text-gray-500">{date}</span>
+      <Datetime date={podcastNote.createdAt} />
     </div>
   );
 }
