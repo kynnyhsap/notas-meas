@@ -21,6 +21,7 @@
     "vite": "^4.4.6"
   },
   "dependencies": {
+    "@solid-primitives/scheduled": "^1.4.1",
     "@solidjs/meta": "^0.28.5",
     "@solidjs/router": "^0.8.2",
     "@xata.io/client": "^0.26.2",
