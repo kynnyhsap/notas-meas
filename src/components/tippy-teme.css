@@ -1,0 +1,7 @@
+.tippy-box[data-theme~="custom"] {
+  @apply bg-green-600 text-white text-sm p-2 rounded-md;
+}
+
+/*.tippy-box[data-theme~="custom"] > .tippy-arrow {*/
+/*  @apply w-4 h-4 bg-green-600 rotate-45;*/
+/*}*/
