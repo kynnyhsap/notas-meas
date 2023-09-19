@@ -1,0 +1,7 @@
+.tippy-box[data-theme~="custom"] {
+  @apply bg-green-600 text-white text-sm px-2 rounded-md;
+}
+
+.tippy-box[data-theme~="custom"] > .tippy-arrow::before {
+  @apply border-b-green-600;
+}

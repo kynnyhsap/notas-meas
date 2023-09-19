@@ -4,7 +4,8 @@ import { PodcastImageWithTitle } from "~/components/PodcastImageWithTitle";
 import { PodcastEpisodeTitle } from "~/components/PodcastEpisodeTitle";
 
 import tippy from "tippy.js";
-import "./tippy-teme.css";
+import "tippy.js/dist/tippy.css";
+import "./tippy.theme.css";
 
 export function PodcastNote({
   podcastNote,
@@ -13,8 +14,8 @@ export function PodcastNote({
 }) {
   const text = podcastNote?.text ?? "";
 
-  function copyToClipboard() {
-    return navigator.clipboard.writeText(text);
+  async function copyToClipboard() {
+    await navigator.clipboard.writeText(text);
   }
 
   return (
@@ -35,13 +36,12 @@ export function PodcastNote({
           onClick={copyToClipboard}
           ref={(el) => {
             tippy(el, {
-              content: "Copied to clipboard!",
-              trigger: "click",
-              placement: "bottom",
-              arrow: true,
+              content: "Copied to clipboard",
+              delay: [200, 1000],
               animation: "scale",
+              placement: "bottom",
+              trigger: "click",
               theme: "custom",
-              delay: [0, 1000],
             });
           }}
         >
