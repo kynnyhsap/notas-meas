@@ -14,7 +14,7 @@ export function CopyableText({ children }: { children: string }) {
     const timeoutId = setTimeout(() => {
       tooltip.hide();
       clearTimeout(timeoutId);
-    }, 2000);
+    }, 1000);
   }
 
   return (

@@ -3,5 +3,5 @@
 }
 
 .tippy-box[data-theme~="custom"] > .tippy-arrow::before {
-  @apply border-b-green-600;
+  @apply border-b-green-600 border-t-green-600;
 }
