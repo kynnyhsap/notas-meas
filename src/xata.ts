@@ -45,8 +45,6 @@ const tables = [
   {
     name: "Books",
     columns: [
-      { name: "readwiseId", type: "int", unique: true },
-      { name: "image", type: "string" },
       { name: "title", type: "string" },
       { name: "author", type: "string" },
     ],
@@ -55,9 +53,9 @@ const tables = [
   {
     name: "BookHighlights",
     columns: [
-      { name: "readwiseId", type: "int", unique: true },
       { name: "text", type: "text" },
-      { name: "note", type: "text" },
+      { name: "isNote", type: "bool", default: false },
+      { name: "isHidden", type: "bool", default: false },
       { name: "book", type: "link", link: { table: "Books" } },
       { name: "createdAt", type: "datetime" },
     ],
