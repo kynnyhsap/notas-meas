@@ -7,10 +7,12 @@
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
-    "start": "solid-start start"
+    "start": "solid-start start",
+    "spy": "bun run src/spawn-process-to-spy.ts"
   },
   "devDependencies": {
     "@types/dateformat": "^5.0.0",
+    "@types/nodemailer": "^6.4.11",
     "autoprefixer": "^10.4.14",
     "bun-types": "^1.0.3",
     "postcss": "^8.4.26",
@@ -27,6 +29,7 @@
     "@solidjs/router": "^0.8.2",
     "@xata.io/client": "^0.26.2",
     "dayjs": "^1.11.9",
+    "nodemailer": "^6.9.5",
     "solid-heroicons": "^3.2.4",
     "solid-js": "^1.7.11",
     "solid-start": "^0.3.4",
