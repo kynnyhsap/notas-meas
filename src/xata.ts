@@ -54,10 +54,11 @@ const tables = [
     name: "BookHighlights",
     columns: [
       { name: "text", type: "text" },
-      { name: "isNote", type: "bool", default: false },
-      { name: "isHidden", type: "bool", default: false },
+      { name: "note", type: "text" },
       { name: "book", type: "link", link: { table: "Books" } },
-      { name: "createdAt", type: "datetime" },
+      { name: "highlightedAt", type: "datetime" },
+      { name: "lastSyncedAt", type: "datetime" },
+      { name: "lastUpdatedAt", type: "datetime" },
     ],
   },
 ] as const;
