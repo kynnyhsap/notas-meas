@@ -32,6 +32,8 @@ export async function syncReadwiseToXata() {
     (await xata.db.BookHighlights.getFirst())?.lastSyncedAt?.toISOString() ??
     null;
 
+  console.log("Last synced at:", updatedAfter);
+
   const booksBulk = [];
   const highlightsBulk = [];
 
