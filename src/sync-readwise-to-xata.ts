@@ -8,6 +8,8 @@ type Book = {
   cover_image_url: string;
   readwise_url: string;
   highlights: Highlight[];
+
+  category: "books" | "articles" | "supplementals" | "podcasts";
 };
 
 type Highlight = {
@@ -48,7 +50,9 @@ export async function syncReadwiseToXata() {
       count,
     });
 
-    for (const book of results) {
+    const myBooks = results.filter((book) => book.category !== "supplementals");
+
+    for (const book of myBooks) {
       const readwiseBookId = book.user_book_id.toString();
 
       booksBulk.push({
@@ -81,10 +85,9 @@ export async function syncReadwiseToXata() {
 
   const xata = getXataClient();
 
-  const [newBooks, newHighlights] = await Promise.all([
-    xata.db.Books.createOrUpdate(booksBulk),
-    xata.db.BookHighlights.createOrUpdate(highlightsBulk),
-  ]);
+  const newBooks = await xata.db.Books.createOrUpdate(booksBulk);
+  const newHighlights =
+    await xata.db.BookHighlights.createOrUpdate(highlightsBulk);
 
   console.log("Created (or updated) books and highlights in Xata", {
     newBooks: newBooks.length,
@@ -95,3 +98,8 @@ export async function syncReadwiseToXata() {
 console.time("Syncing");
 await syncReadwiseToXata();
 console.timeEnd("Syncing");
+
+// const xata = getXataClient();
+// await xata.db.Books.delete(
+//   (await xata.db.Books.select(["id"]).getAll()).map(({ id }) => id),
+// );
