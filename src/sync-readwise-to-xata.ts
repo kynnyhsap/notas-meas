@@ -1,4 +1,5 @@
 import { getXataClient } from "~/xata";
+import qs from "query-string";
 
 type Book = {
   user_book_id: number;
@@ -24,13 +25,29 @@ type Highlight = {
 };
 
 export async function syncReadwiseToXata() {
+  const xata = getXataClient();
+
+  // last synced at
+  const updatedAfter =
+    (await xata.db.BookHighlights.getFirst())?.lastSyncedAt?.toISOString() ??
+    null;
+
   const booksBulk = [];
   const highlightsBulk = [];
 
   let currentCursor = "";
 
   while (true) {
-    const query = currentCursor ? "?pageCursor=" + currentCursor : "";
+    const query = qs.stringify(
+      {
+        pageCursor: currentCursor ? currentCursor : null,
+        updatedAfter,
+      },
+      {
+        skipNull: true,
+      },
+    );
+
     const {
       results,
       nextPageCursor,
@@ -39,7 +56,7 @@ export async function syncReadwiseToXata() {
       count: number;
       nextPageCursor: string | null;
       results: Book[];
-    } = await fetch(`https://readwise.io/api/v2/export${query}`, {
+    } = await fetch(`https://readwise.io/api/v2/export?${query}`, {
       headers: {
         Authorization: `Token ${process.env.READWISE_API_KEY}`,
       },
@@ -83,8 +100,6 @@ export async function syncReadwiseToXata() {
     currentCursor = nextPageCursor;
   }
 
-  const xata = getXataClient();
-
   const newBooks = await xata.db.Books.createOrUpdate(booksBulk);
   const newHighlights =
     await xata.db.BookHighlights.createOrUpdate(highlightsBulk);
@@ -98,8 +113,3 @@ export async function syncReadwiseToXata() {
 console.time("Syncing");
 await syncReadwiseToXata();
 console.timeEnd("Syncing");
-
-// const xata = getXataClient();
-// await xata.db.Books.delete(
-//   (await xata.db.Books.select(["id"]).getAll()).map(({ id }) => id),
-// );
