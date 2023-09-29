@@ -1,6 +1,7 @@
 import { createServerData$ } from "solid-start/server/browser";
 import { getXataClient } from "~/xata";
 import { useRouteData } from "@solidjs/router";
+import { PageHeading } from "~/components/PageHeading";
 
 export function routeData() {
   return createServerData$(
@@ -50,7 +51,7 @@ export default function StatsPage() {
 
   return (
     <>
-      <h1 class="font-bold text-2xl text-center mb-8">Stats</h1>
+      <PageHeading>Stats</PageHeading>
 
       <div class="text-center">
         <span class="font-bold text-red-300">
