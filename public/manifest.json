@@ -1,0 +1,15 @@
+{
+  "name": "Notas Meas",
+  "short_name": "Notas Meas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#13121d",
+  "theme_color": "#13121d",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}
