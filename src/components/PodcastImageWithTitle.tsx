@@ -2,27 +2,27 @@ import { Size } from "~/components/size";
 import { A } from "@solidjs/router";
 import { PodcastsRecord } from "~/xata";
 
-export function PodcastImageWithTitle({
-  podcast,
-  size = "md",
-}: {
+export function PodcastImageWithTitle(props: {
   podcast: PodcastsRecord | null | undefined;
   size: Size;
 }) {
-  if (!podcast) return null;
-
-  const sizeClasses = getWidthAndHeightClassesFromSize(size);
-  const gapClass = getGapClassFromSize(size);
+  const sizeClasses = getWidthAndHeightClassesFromSize(props.size);
+  const gapClass = getGapClassFromSize(props.size);
 
   return (
-    <A href={`/podcasts/${podcast.id}`} class={`flex items-center ${gapClass}`}>
+    <A
+      href={`/podcasts/${props.podcast?.id}`}
+      class={`flex items-center ${gapClass}`}
+    >
       <img
-        src={podcast.image ?? FALLBACK_IMAGE}
+        src={props.podcast?.image ?? FALLBACK_IMAGE}
         alt="podcast image"
         class={`${sizeClasses} rounded inline-block shadow shadow-gray-800`}
       />
 
-      <span class={`text-${size} text-orange-300`}>{podcast.title ?? ""}</span>
+      <span class={`text-${props.size} text-orange-300`}>
+        {props.podcast?.title ?? ""}
+      </span>
     </A>
   );
 }

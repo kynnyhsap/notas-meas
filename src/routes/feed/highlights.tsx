@@ -5,6 +5,8 @@ import { SearchInput } from "~/components/SearchInput";
 import { InfinitePages } from "~/components/InfinitePages";
 import server$ from "solid-start/server";
 import { BookHighlightsRecord, getXataClient } from "~/xata";
+import { Highlight } from "~/components/books/Highlight";
+import { HighlightSkeleton } from "~/components/books/HighlightSkeleton";
 
 const PAGE_SIZE = 20;
 
@@ -61,20 +63,13 @@ export default function Highlights() {
         search={search()}
         fallback={
           <div>
-            <div>Highlight skeleton</div>
-            <div>Highlight skeleton</div>
-            <div>Highlight skeleton</div>
-            <div>Highlight skeleton</div>
-            <div>Highlight skeleton</div>
+            <HighlightSkeleton />
+            <HighlightSkeleton />
+            <HighlightSkeleton />
           </div>
         }
       >
-        {(highlight) => (
-          <div class="my-4">
-            <span>{highlight.text}</span>
-            {/*{highlight.note && <div>{highlight.note}</div>}*/}
-          </div>
-        )}
+        {(highlight) => <Highlight highlight={highlight} />}
       </InfinitePages>
     </div>
   );

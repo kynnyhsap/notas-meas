@@ -1,24 +1,19 @@
 import { A } from "@solidjs/router";
 import { PodcastEpisodesRecord } from "~/xata";
 import { truncate } from "~/utils/truncate";
+import { Size } from "~/components/size";
 
-export function PodcastEpisodeTitle({
-  episode,
-  size,
-  truncateAfter = 500,
-}: {
+export function PodcastEpisodeTitle(props: {
   episode: PodcastEpisodesRecord | null | undefined;
-  size?: "xs" | "sm" | "md" | "lg";
+  size: Size;
   truncateAfter?: number;
 }) {
-  if (!episode) return null;
-
   return (
-    <A href={`/podcasts/episodes/${episode.id}`}>
+    <A href={`/podcasts/episodes/${props.episode?.id}`}>
       <div
-        class={`text-${size} text-purple-300 rounded p-2 border border-gray-800`}
+        class={`text-${props.size} text-purple-300 rounded p-2 border border-gray-800`}
       >
-        {truncate(episode.title, truncateAfter)}
+        {truncate(props.episode?.title, props.truncateAfter ?? 500)}
       </div>
     </A>
   );
