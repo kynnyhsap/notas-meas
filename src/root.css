@@ -8,3 +8,7 @@ body {
   @apply bg-dark text-white;
   font-family: "Fira Mono", monospace;
 }
+
+input {
+  -webkit-appearance: none;
+}

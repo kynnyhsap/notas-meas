@@ -29,8 +29,8 @@ export function SearchInput({
         <input
           type="search"
           id="default-search"
-          class="block w-full p-4 pl-10 text-sm border border-gray-300 rounded-lg bg-transparent"
-          placeholder="Search notes..."
+          class="block w-full p-4 pl-10 text-sm rounded-lg bg-transparent"
+          placeholder="Search..."
           required
           onChange={(e) => onChange?.(e.currentTarget.value)}
           onInput={(e) => onInput?.(e.currentTarget.value)}

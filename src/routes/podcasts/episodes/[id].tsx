@@ -32,12 +32,14 @@ export default function PodcastEpisodePage() {
   const [episode] = createResource(() => params.id, episodeFetcher);
   const [notes] = createResource(() => params.id, notesFetcher);
 
+  const podcast = () => episode()?.podcast;
+
   return (
     <>
       <PageHeading>Podcast Episode</PageHeading>
 
       <div class="my-4">
-        <PodcastImageWithTitle podcast={episode()?.podcast} size="sm" />
+        <PodcastImageWithTitle podcast={podcast()} size="sm" />
       </div>
 
       <div class="my-4">
