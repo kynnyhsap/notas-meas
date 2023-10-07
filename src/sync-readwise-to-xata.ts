@@ -25,6 +25,8 @@ type Highlight = {
 };
 
 export async function syncReadwiseToXata() {
+  console.log("Syncing highlights!");
+
   const xata = getXataClient();
 
   // last synced at
@@ -47,7 +49,7 @@ export async function syncReadwiseToXata() {
       },
       {
         skipNull: true,
-      },
+      }
     );
 
     const {
@@ -110,8 +112,11 @@ export async function syncReadwiseToXata() {
     newBooks: newBooks.length,
     newHighlights: newHighlights.length,
   });
-}
 
-console.time("Syncing");
-await syncReadwiseToXata();
-console.timeEnd("Syncing");
+  console.log("End of sync highlights!");
+
+  return {
+    newBooks,
+    newHighlights,
+  };
+}
