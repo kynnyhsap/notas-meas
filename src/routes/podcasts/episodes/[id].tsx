@@ -2,11 +2,12 @@ import server$ from "solid-start/server";
 import { getXataClient } from "~/xata";
 import { createResource, For } from "solid-js";
 import { Datetime } from "~/components/Datetime";
-import { PodcastImageWithTitle } from "~/components/PodcastImageWithTitle";
-import { PodcastEpisodeTitle } from "~/components/PodcastEpisodeTitle";
+import { PodcastImageWithTitle } from "~/components/podcasts/PodcastImageWithTitle";
+import { PodcastEpisodeTitle } from "~/components/podcasts/PodcastEpisodeTitle";
 import { PageHeading } from "~/components/PageHeading";
 import { useParams } from "solid-start";
 import { wait } from "~/utils/wait";
+import { CopyableText } from "~/components/CopyableText";
 
 const episodeFetcher = server$(async (id) => {
   const xata = getXataClient();
@@ -54,7 +55,9 @@ export default function PodcastEpisodePage() {
 
               <Datetime date={note.createdAt} />
 
-              <p class="my-4 font-normal">{note.text}</p>
+              <p class="my-4 font-normal">
+                <CopyableText>{note.text ?? ""}</CopyableText>
+              </p>
             </li>
           )}
         </For>

@@ -2,8 +2,8 @@ import { createServerData$ } from "solid-start/server";
 import { getXataClient, PodcastEpisodesRecord, PodcastsRecord } from "~/xata";
 import { useRouteData, RouteDataArgs } from "solid-start";
 import { For, Suspense } from "solid-js";
-import { PodcastImageWithTitle } from "~/components/PodcastImageWithTitle";
-import { PodcastEpisodeTitle } from "~/components/PodcastEpisodeTitle";
+import { PodcastImageWithTitle } from "~/components/podcasts/PodcastImageWithTitle";
+import { PodcastEpisodeTitle } from "~/components/podcasts/PodcastEpisodeTitle";
 
 export function routeData({ params }: RouteDataArgs) {
   return createServerData$(

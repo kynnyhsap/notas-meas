@@ -3,10 +3,17 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
 import "./tippy.theme.css";
 
-export function CopyableText({ children }: { children: string }) {
+export function CopyableText({
+  children,
+  ...props
+}: {
+  children: string;
+  class?: string;
+}) {
   let tooltip: Instance;
 
   async function copyToClipboard() {
+    // @ts-ignore
     await navigator.clipboard.writeText(children);
 
     tooltip.show();
@@ -20,7 +27,8 @@ export function CopyableText({ children }: { children: string }) {
   return (
     <span
       onClick={copyToClipboard}
-      ref={(el) => {
+      ref={(el: any) => {
+        // @ts-ignore
         tooltip = tippy(el, {
           content: "Copied to clipboard",
           animation: "scale",
@@ -30,6 +38,7 @@ export function CopyableText({ children }: { children: string }) {
           duration: 300,
         });
       }}
+      {...props}
     >
       {children}
     </span>

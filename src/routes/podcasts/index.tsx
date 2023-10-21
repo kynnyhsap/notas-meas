@@ -3,7 +3,7 @@ import { useRouteData } from "solid-start";
 import { createServerData$ } from "solid-start/server";
 import { For } from "solid-js";
 import { A } from "@solidjs/router";
-import { PodcastImageWithTitle } from "~/components/PodcastImageWithTitle";
+import { PodcastImageWithTitle } from "~/components/podcasts/PodcastImageWithTitle";
 
 export function routeData() {
   return createServerData$(

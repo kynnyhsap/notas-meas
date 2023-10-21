@@ -10,9 +10,7 @@ export function PodcastEpisodeTitle(props: {
 }) {
   return (
     <A href={`/podcasts/episodes/${props.episode?.id}`}>
-      <div
-        class={`text-${props.size} text-purple-300 rounded p-2 border border-gray-800`}
-      >
+      <div class={`text-${props.size} text-purple-300 rounded`}>
         {truncate(props.episode?.title, props.truncateAfter ?? 500)}
       </div>
     </A>
