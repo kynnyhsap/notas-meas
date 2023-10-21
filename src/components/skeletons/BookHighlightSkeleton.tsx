@@ -5,7 +5,7 @@ import { pencilSquare } from "solid-heroicons/solid-mini";
 
 export function BookHighlightSkeleton() {
   return (
-    <div class="my-24 flex flex-col gap-4">
+    <div class="my-24 flex flex-col gap-4 opacity-60">
       <BookTitleAndAuthorSkeleton />
 
       <div class="my-2">

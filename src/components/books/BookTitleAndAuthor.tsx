@@ -8,9 +8,9 @@ export function BookTitleAndAuthor(props: {
 
   return (
     <div class="flex flex-col gap-2">
-      <div class="text-end font-bold">{title()}</div>
+      <div class="ml-8 text-end italic">{title()}</div>
 
-      <div class="text-end text-blue-300">{author()}</div>
+      <div class="text-end text-pink-300">{author()}</div>
     </div>
   );
 }

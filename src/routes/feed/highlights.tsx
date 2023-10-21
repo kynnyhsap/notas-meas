@@ -61,6 +61,8 @@ export default function Highlights() {
         <SyncHighlightsButton />
       </div>
 
+      <BookHighlightSkeleton />
+
       <InfinitePages
         fetcher={bookHighlightsFetcher}
         search={search()}
