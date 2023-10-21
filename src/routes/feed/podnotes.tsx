@@ -51,7 +51,7 @@ export default function Podnotes() {
     <div>
       <PageHeading>Podnotes</PageHeading>
 
-      <div class="my-16">
+      <div class="my-8">
         <SearchInput onInput={debounced} />
       </div>
 
