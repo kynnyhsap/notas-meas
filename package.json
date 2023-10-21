@@ -30,6 +30,7 @@
     "@solidjs/router": "^0.8.2",
     "@xata.io/client": "^0.26.2",
     "dayjs": "^1.11.9",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.5",
     "solid-heroicons": "^3.2.4",
     "solid-js": "^1.7.11",

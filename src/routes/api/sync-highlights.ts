@@ -1,6 +1,7 @@
 import qs from "query-string";
 import { json } from "solid-start";
 import { getXataClient } from "~/xata";
+import fetch from "node-fetch";
 
 type Book = {
   user_book_id: number;
@@ -58,15 +59,15 @@ async function syncReadwiseToXata() {
       results = [],
       nextPageCursor,
       count,
-    }: {
-      count: number;
-      nextPageCursor: string | null;
-      results: Book[];
-    } = await fetch(`https://readwise.io/api/v2/export?${query}`, {
+    } = (await fetch(`https://readwise.io/api/v2/export?${query}`, {
       headers: {
         Authorization: `Token ${process.env.READWISE_API_KEY}`,
       },
-    }).then((res) => res.json());
+    }).then((res) => res.json())) as {
+      count: number;
+      nextPageCursor: string | null;
+      results: Book[];
+    };
 
     console.log("Fetched page with books and highlights :", {
       nextPageCursor,
