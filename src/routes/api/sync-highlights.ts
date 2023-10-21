@@ -55,7 +55,7 @@ async function syncReadwiseToXata() {
     );
 
     const {
-      results,
+      results = [],
       nextPageCursor,
       count,
     }: {
@@ -71,11 +71,10 @@ async function syncReadwiseToXata() {
     console.log("Fetched page with books and highlights :", {
       nextPageCursor,
       count,
+      results,
     });
 
-    const myBooks = results?.filter(
-      (book) => book.category !== "supplementals",
-    );
+    const myBooks = results.filter((book) => book.category !== "supplementals");
 
     for (const book of myBooks) {
       const readwiseBookId = book.user_book_id.toString();
