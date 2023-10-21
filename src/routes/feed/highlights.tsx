@@ -7,7 +7,6 @@ import server$ from "solid-start/server";
 import { BookHighlightsRecord, getXataClient } from "~/xata";
 import { BookHighlight } from "~/components/books/BookHighlight";
 import { BookHighlightSkeleton } from "~/components/skeletons/BookHighlightSkeleton";
-import { syncReadwiseToXata } from "~/routes/api/sync-highlights";
 import { Icon } from "solid-heroicons";
 import { arrowPath } from "solid-heroicons/solid";
 
@@ -81,8 +80,6 @@ export default function Highlights() {
   );
 }
 
-const syncBookHighlights = server$(syncReadwiseToXata);
-
 function SyncHighlightsButton() {
   const [syncing, setSyncing] = createSignal(false);
 
@@ -91,7 +88,7 @@ function SyncHighlightsButton() {
 
     setSyncing(true);
     try {
-      await syncBookHighlights();
+      await fetch("/api/sync-highlights");
     } finally {
       setSyncing(false);
     }

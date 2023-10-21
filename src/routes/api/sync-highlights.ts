@@ -25,7 +25,7 @@ type Highlight = {
   readwise_url: string;
 };
 
-export async function syncReadwiseToXata() {
+async function syncReadwiseToXata() {
   console.log("Syncing highlights!");
 
   const xata = getXataClient();
