@@ -7,6 +7,9 @@ import server$ from "solid-start/server";
 import { BookHighlightsRecord, getXataClient } from "~/xata";
 import { BookHighlight } from "~/components/books/BookHighlight";
 import { BookHighlightSkeleton } from "~/components/skeletons/BookHighlightSkeleton";
+import { syncReadwiseToXata } from "~/routes/api/sync-highlights";
+import { Icon } from "solid-heroicons";
+import { arrowPath } from "solid-heroicons/solid";
 
 const PAGE_SIZE = 20;
 
@@ -54,8 +57,9 @@ export default function Highlights() {
     <div>
       <PageHeading>Highlights</PageHeading>
 
-      <div class="my-8">
+      <div class="my-8 flex justify-between items-center gap-2">
         <SearchInput onInput={debounced} />
+        <SyncHighlightsButton />
       </div>
 
       <InfinitePages
@@ -74,5 +78,31 @@ export default function Highlights() {
         {(highlight) => <BookHighlight highlight={highlight} />}
       </InfinitePages>
     </div>
+  );
+}
+
+const syncBookHighlights = server$(syncReadwiseToXata);
+
+function SyncHighlightsButton() {
+  const [syncing, setSyncing] = createSignal(false);
+
+  async function sync() {
+    if (syncing()) return;
+
+    setSyncing(true);
+    try {
+      await syncBookHighlights();
+    } finally {
+      setSyncing(false);
+    }
+  }
+
+  return (
+    <button
+      class="bg-green-700 rounded px-2 py-2 flex items-center gap-2"
+      onClick={() => sync()}
+    >
+      <Icon path={arrowPath} class={`w-6 ${syncing() ? "animate-spin" : ""}`} />
+    </button>
   );
 }
