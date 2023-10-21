@@ -73,7 +73,9 @@ async function syncReadwiseToXata() {
       count,
     });
 
-    const myBooks = results.filter((book) => book.category !== "supplementals");
+    const myBooks = results?.filter(
+      (book) => book.category !== "supplementals",
+    );
 
     for (const book of myBooks) {
       const readwiseBookId = book.user_book_id.toString();
