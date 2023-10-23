@@ -5,8 +5,8 @@ import { debounce } from "@solid-primitives/scheduled";
 import { PageHeading } from "~/components/PageHeading";
 import { SearchInput } from "~/components/SearchInput";
 import { InfinitePages } from "~/components/InfinitePages";
-import { PodcastNoteSkeleton } from "~/components/skeletons/PodcastNoteSkeleton";
-import { PodcastNote } from "~/components/podcasts/PodcastNote";
+import { PodnoteSkeleton } from "~/components/skeletons/PodnoteSkeleton";
+import { Podnote } from "~/components/podcasts/Podnote";
 
 const PAGE_SIZE = 20;
 
@@ -60,15 +60,15 @@ export default function Podnotes() {
         search={search()}
         fallback={
           <div>
-            <PodcastNoteSkeleton />
-            <PodcastNoteSkeleton />
-            <PodcastNoteSkeleton />
-            <PodcastNoteSkeleton />
-            <PodcastNoteSkeleton />
+            <PodnoteSkeleton />
+            <PodnoteSkeleton />
+            <PodnoteSkeleton />
+            <PodnoteSkeleton />
+            <PodnoteSkeleton />
           </div>
         }
       >
-        {(podcastNote) => <PodcastNote podcastNote={podcastNote} />}
+        {(podcastNote) => <Podnote podcastNote={podcastNote} />}
       </InfinitePages>
     </div>
   );

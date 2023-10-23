@@ -5,8 +5,8 @@ import { SearchInput } from "~/components/SearchInput";
 import { InfinitePages } from "~/components/InfinitePages";
 import server$ from "solid-start/server";
 import { BookHighlightsRecord, getXataClient } from "~/xata";
-import { BookHighlight } from "~/components/books/BookHighlight";
-import { BookHighlightSkeleton } from "~/components/skeletons/BookHighlightSkeleton";
+import { Highlight } from "~/components/books/Highlight";
+import { HighlightSkeleton } from "~/components/skeletons/HighlightSkeleton";
 import { Icon } from "solid-heroicons";
 import { arrowPath } from "solid-heroicons/solid";
 
@@ -66,15 +66,15 @@ export default function Highlights() {
         search={search()}
         fallback={
           <div>
-            <BookHighlightSkeleton />
-            <BookHighlightSkeleton />
-            <BookHighlightSkeleton />
-            <BookHighlightSkeleton />
-            <BookHighlightSkeleton />
+            <HighlightSkeleton />
+            <HighlightSkeleton />
+            <HighlightSkeleton />
+            <HighlightSkeleton />
+            <HighlightSkeleton />
           </div>
         }
       >
-        {(highlight) => <BookHighlight highlight={highlight} />}
+        {(highlight) => <Highlight highlight={highlight} />}
       </InfinitePages>
     </div>
   );

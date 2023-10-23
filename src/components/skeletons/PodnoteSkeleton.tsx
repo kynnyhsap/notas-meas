@@ -3,7 +3,7 @@ import { PodcastEpisodeTitleSkeleton } from "./PodcastEpisodeTitleSkeleton";
 import { PodcastTitleWithImageSkeleton } from "./PodcastTitleWithImageSkeleton";
 import { NoteTextSkeleton } from "./NoteTextSkeleton";
 
-export function PodcastNoteSkeleton() {
+export function PodnoteSkeleton() {
   return (
     <div class="animate-pulse my-16 cursor-pointer flex flex-col gap-4">
       <PodcastEpisodeTitleSkeleton />

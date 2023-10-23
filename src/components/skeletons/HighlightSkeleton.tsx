@@ -1,12 +1,14 @@
 import { DatetimeSkeleton } from "~/components/skeletons/DatetimeSkeleton";
-import { BookTitleAndAuthorSkeleton } from "~/components/skeletons/BookTitleAndAuthorSkeleton";
-import { Icon } from "solid-heroicons";
-import { pencilSquare } from "solid-heroicons/solid-mini";
+import { BookTitleSkeleton } from "~/components/skeletons/BookTitleSkeleton";
+import { BookAuthorSkeleton } from "~/components/skeletons/BookAuthorSkeleton";
 
-export function BookHighlightSkeleton() {
+export function HighlightSkeleton() {
   return (
     <div class="my-24 flex flex-col gap-4 opacity-60">
-      <BookTitleAndAuthorSkeleton />
+      <div class="flex flex-col gap-2 items-end">
+        <BookTitleSkeleton />
+        <BookAuthorSkeleton />
+      </div>
 
       <div class="my-2">
         <div class="animate-pulse my-8 flex flex-col gap-2">
@@ -52,7 +54,7 @@ export function BookHighlightSkeleton() {
         </div>
 
         <div class="mt-4 flex gap-2 items-center">
-          <Icon path={pencilSquare} style="width: 18px;" />
+          <div class="w-1 h-5 bg-yellow-400 rounded" />
           <div class="h-1.5 rounded w-48 bg-gray-200" />
         </div>
       </div>

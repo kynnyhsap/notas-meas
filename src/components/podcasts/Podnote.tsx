@@ -5,13 +5,13 @@ import { PodcastEpisodeTitle } from "~/components/podcasts/PodcastEpisodeTitle";
 import { CopyableText } from "~/components/CopyableText";
 import { Opaque } from "~/components/Opaque";
 
-export function PodcastNote({
+export function Podnote({
   podcastNote,
 }: {
   podcastNote: PodcastEpisodeNotesRecord;
 }) {
   return (
-    <div class="my-24 flex flex-col gap-4">
+    <div class="my-16 flex flex-col gap-4">
       <Opaque>
         <PodcastImageWithTitle
           podcast={podcastNote?.podcastEpisode?.podcast}
