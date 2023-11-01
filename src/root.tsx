@@ -13,6 +13,7 @@ import {
   Title,
 } from "solid-start";
 import "./root.css";
+import { SideMenu } from "~/components/SideMenu";
 
 export default function Root() {
   return (
@@ -33,6 +34,8 @@ export default function Root() {
               </Routes>
             </ErrorBoundary>
           </Suspense>
+
+          <SideMenu />
         </main>
 
         <Scripts />

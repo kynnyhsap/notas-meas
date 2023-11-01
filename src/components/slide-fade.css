@@ -1,0 +1,10 @@
+.slide-fade-enter-active,
+.slide-fade-exit-active {
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.slide-fade-enter,
+.slide-fade-exit-to {
+    transform: translateX(192px); /* same as w-48 */
+    opacity: 0;
+}
