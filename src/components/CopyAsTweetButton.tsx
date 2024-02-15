@@ -4,12 +4,12 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
 import "./tippy.theme.css";
 
-export function CopyAsTweetButton({ text }: { text: string }) {
+export function CopyAsTweetButton(props: { text: string }) {
   let tooltip: Instance;
 
   async function onClick() {
     // @ts-ignore
-    await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(props.text);
 
     tooltip.show();
 
