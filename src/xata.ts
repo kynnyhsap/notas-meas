@@ -12,6 +12,7 @@ const tables = [
     columns: [
       { name: "title", type: "string" },
       { name: "image", type: "string" },
+      { name: "twitterHandle", type: "string" },
     ],
     revLinks: [{ column: "podcast", table: "PodcastEpisodes" }],
   },

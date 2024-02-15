@@ -8,6 +8,7 @@ import { PageHeading } from "~/components/PageHeading";
 import { useParams } from "solid-start";
 import { wait } from "~/utils/wait";
 import { CopyableText } from "~/components/CopyableText";
+import { CopyAsTweetButton } from "~/components/CopyAsTweetButton";
 
 const episodeFetcher = server$(async (id) => {
   const xata = getXataClient();
@@ -35,6 +36,20 @@ export default function PodcastEpisodePage() {
 
   const podcast = () => episode()?.podcast;
 
+  const episodeTitle = () => episode()?.title;
+  const podcastTwitterHandle = () => podcast()?.twitterHandle;
+
+  const notesText = () =>
+    notes()
+      ?.map((note) => note.text)
+      .reverse()
+      .join("\n\n");
+
+  const tweetText = () =>
+    `notes from recent @${podcastTwitterHandle()} episode - ${episodeTitle()}:
+
+${notesText()}`;
+
   return (
     <>
       <PageHeading>Podcast Episode</PageHeading>
@@ -45,6 +60,10 @@ export default function PodcastEpisodePage() {
 
       <div class="my-4">
         <PodcastEpisodeTitle episode={episode()} size="md" />
+      </div>
+
+      <div class="my-8 flex items-center justify-center">
+        <CopyAsTweetButton text={tweetText()} />
       </div>
 
       <ol class="relative border-l border-gray-700 ml-4">
